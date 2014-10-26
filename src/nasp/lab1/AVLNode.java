@@ -2,8 +2,8 @@ package nasp.lab1;
 
 public class AVLNode {
 	private int value;
-	private AVLNode rightChild = null;
-	private AVLNode leftChild = null;
+	protected AVLNode rightChild = null;
+	protected AVLNode leftChild = null;
 
 	int balanceFactor = 0;
 

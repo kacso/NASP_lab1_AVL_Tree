@@ -19,19 +19,57 @@ public class AVLTree {
 
 		/** Create tree */
 		for (int value : values) {
-			root = addElement(value);
+			if(addElement(value) == false){
+				System.out.println("Inserting duplicate value!");
+			}
+		}
+	}
+	
+	public boolean addElement(int value){
+		AVLNode newElement = new AVLNode(value);
+		try{
+			addElement(newElement, root);
+			return true;
+		} catch(Exception e){
+			return false;
 		}
 	}
 
-	/** Returns new root element */
-	public AVLNode addElement(int value) {
-		// TODO
-		AVLNode parent = findElementByValue(value);
-		AVLNode newElement = new AVLNode(value);
-		
-		parent.appendChild(newElement);
-		
-		return reorganizeTree(newElement);
+	/** Returns new root element 
+	 * @throws Exception */
+	private AVLNode addElement(AVLNode newElement, AVLNode parent) throws Exception {
+		if (root == null)
+			root = newElement;
+		else if (newElement.getNodeValue() < root.getNodeValue()) {
+			root.leftChild = addElement(newElement, root.leftChild);
+
+			/*if (height(t.left) - height(t.right) == 2) {
+				if (x.compareTo(t.left.element) < 0) {
+					t = rotateWithLeftChild(t);
+					countSingleRotations++;
+				} else {
+					t = doubleWithLeftChild(t);
+					countDoubleRotations++;
+				}
+			}*/
+		} else if (newElement.getNodeValue() > root.getNodeValue()) {
+			root.rightChild = addElement(newElement, root.rightChild);
+
+			/*if (height(t.right) - height(t.left) == 2)
+				if (x.compareTo(t.right.element) > 0) {
+					t = rotateWithRightChild(t);
+					countSingleRotations++;
+				} else {
+					t = doubleWithRightChild(t);
+					countDoubleRotations++;
+				}*/
+		} else {
+			throw new Exception("Adding duplicate value");
+		}
+
+		//t.height = max(height(t.left), height(t.right)) + 1;
+		return root;
+
 	}
 
 	/** Returns new root element */
@@ -67,14 +105,14 @@ public class AVLTree {
 		}
 		return values;
 	}
-	
-	private AVLNode findElementByValue(int value){
-		//TODO
+
+	private AVLNode findElementByValue(int value) {
+		// TODO
 		return null;
 	}
-	
-	private AVLNode reorganizeTree(AVLNode insertedElement){
-		//TODO
+
+	private AVLNode reorganizeTree(AVLNode insertedElement) {
+		// TODO
 		return null;
 	}
 }
