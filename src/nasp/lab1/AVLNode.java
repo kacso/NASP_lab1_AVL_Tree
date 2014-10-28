@@ -1,57 +1,14 @@
 package nasp.lab1;
 
 public class AVLNode {
-	private int value;
+	protected int value;
 	protected AVLNode rightChild = null;
 	protected AVLNode leftChild = null;
 
-	int balanceFactor = 0;
+	protected int height = 0;
 
 	public AVLNode(int value) {
 		this.value = value;
-	}
-
-	public int getNodeValue() {
-		return value;
-	}
-
-	public void setNodeValue(int nodeValue) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public AVLNode getParentNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * public AVLNode getFirstChild() { // TODO Auto-generated method stub
-	 * return null; }
-	 * 
-	 * public AVLNode getLastChild() { // TODO Auto-generated method stub return
-	 * null; }
-	 * 
-	 * public AVLNode getPreviousSibling() { // TODO Auto-generated method stub
-	 * return null; }
-	 * 
-	 * public AVLNode getNextSibling() { // TODO Auto-generated method stub
-	 * return null; }
-	 */
-
-	public AVLNode insertBefore(AVLNode newChild, AVLNode refChild) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public AVLNode replaceChild(AVLNode newChild, AVLNode oldChild) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public AVLNode removeChild(AVLNode oldChild) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public AVLNode appendChild(AVLNode newChild) {
@@ -67,18 +24,20 @@ public class AVLNode {
 		}
 	}
 
-/*	public AVLNode cloneNode(boolean deep) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean isSameNode(AVLNode other) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean isEqualNode(AVLNode arg) {
-		// TODO Auto-generated method stub
-		return false;
-	}*/
+	/*
+	 * public void printTree() { System.out.println(value); if (leftChild !=
+	 * null) leftChild.printTree();
+	 * 
+	 * if (rightChild != null) rightChild.printTree(); }
+	 */
+	/*
+	 * public void printTree() { printTree(this);
+	 * 
+	 * }
+	 * 
+	 * private void printTree(AVLNode node) { if (node == null) return;
+	 * 
+	 * // left, node itself, right printTree(node.leftChild);
+	 * System.out.print(node.value + "  "); printTree(node.rightChild); }
+	 */
 }
