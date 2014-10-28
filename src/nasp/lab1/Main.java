@@ -10,8 +10,8 @@ public class Main {
 		try {
 			avlTree.initialize();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error occurs" + e);
+			return;
 		}
 
 		avlTree.printTree();
