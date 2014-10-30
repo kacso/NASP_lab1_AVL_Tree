@@ -71,10 +71,11 @@ public class AVLTree {
 		}
 
 		parent.height = max(height(parent.leftChild), height(parent.rightChild)) + 1;
+		
 		return parent;
 
 	}
-
+	
 	/** Return max value */
 	private int max(int a, int b) {
 		if (a > b)
@@ -88,6 +89,9 @@ public class AVLTree {
 	}
 
 	private AVLNode rotateWithLeftChild(AVLNode parent) {
+		if (parent.leftChild == null) {
+			return parent;
+		}
 		AVLNode child = parent.leftChild;
 
 		parent.leftChild = child.rightChild;
@@ -105,6 +109,9 @@ public class AVLTree {
 	}
 
 	private AVLNode rotateWithRightChild(AVLNode parent) {
+		if (parent.rightChild == null) {
+			return parent;
+		}
 		AVLNode child = parent.rightChild;
 
 		parent.rightChild = child.leftChild;
@@ -158,7 +165,7 @@ public class AVLTree {
 
 		if (value < node.value) {
 			node.leftChild = deleteElement(value, node.leftChild);
-			int left = node.leftChild != null ? height(node.leftChild) : 0;
+			int left = node.leftChild != null ? height(node.leftChild) : -1;
 
 			if ((node.rightChild != null)
 					&& (node.rightChild.height - left >= 2)) {
@@ -168,22 +175,22 @@ public class AVLTree {
 						: 0;
 
 				if (rightHeight >= leftHeight)
-					node = rotateWithLeftChild(node);
+					node = rotateWithRightChild(node);
 				else
 					node = doubleRotateWithRightChild(node);
 			}
 
 		} else if (value > node.value) {
 			node.rightChild = deleteElement(value, node.rightChild);
-			int right = node.rightChild != null ? height(node.rightChild) : 0;
+			int right = node.rightChild != null ? height(node.rightChild) : -1;
 			if ((node.leftChild != null)
-					&& (height(node.leftChild) - right == 2)) {
+					&& (height(node.leftChild) - right >= 2)) {
 				int leftHeight = node.leftChild.leftChild != null ? height(node.leftChild.leftChild)
 						: 0;
 				int rightHeight = node.leftChild.rightChild != null ? height(node.leftChild.rightChild)
 						: 0;
 				if (leftHeight >= rightHeight)
-					node = rotateWithRightChild(node);
+					node = rotateWithLeftChild(node);
 				else
 					node = doubleRotateWithLeftChild(node);
 			}
@@ -196,7 +203,7 @@ public class AVLTree {
 			node.leftChild = deleteElement(node.value, node.leftChild);
 
 			if ((node.rightChild != null)
-					&& (height(node.rightChild) - height(node.leftChild) == 2)) {
+					&& (height(node.rightChild) - height(node.leftChild) >= 2)) {
 				int rightHeight = node.rightChild.rightChild != null ? height(node.rightChild.rightChild)
 						: 0;
 				int leftHeight = node.rightChild.leftChild != null ? height(node.rightChild.leftChild)
@@ -215,9 +222,9 @@ public class AVLTree {
 
 		if (node != null) {
 			int leftHeight = node.leftChild != null ? height(node.leftChild)
-					: 0;
+					: -1;
 			int rightHeight = node.rightChild != null ? height(node.rightChild)
-					: 0;
+					: -1;
 			node.height = max(leftHeight, rightHeight) + 1;
 		}
 		return node;
