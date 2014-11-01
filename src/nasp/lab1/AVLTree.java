@@ -45,12 +45,11 @@ public class AVLTree {
 	private AVLNode addElement(AVLNode newElement, AVLNode parent)
 			throws Exception {
 		if (parent == null) {
-			parent = newElement;
-			return parent;
+			return newElement;
 		} else if (newElement.value < parent.value) {
 			parent.leftChild = addElement(newElement, parent.leftChild);
 
-			if (height(parent.rightChild) - height(parent.leftChild) == -2) {
+			if (height(parent.rightChild) - height(parent.leftChild) <= -2) {
 				if (newElement.value < parent.leftChild.value) {
 					parent = rotateWithLeftChild(parent);
 				} else {
@@ -60,7 +59,7 @@ public class AVLTree {
 		} else if (newElement.value > parent.value) {
 			parent.rightChild = addElement(newElement, parent.rightChild);
 
-			if (height(parent.rightChild) - height(parent.leftChild) == 2)
+			if (height(parent.rightChild) - height(parent.leftChild) >= 2)
 				if (newElement.value > parent.rightChild.value) {
 					parent = rotateWithRightChild(parent);
 				} else {
@@ -100,7 +99,7 @@ public class AVLTree {
 		parent.height = max(height(parent.leftChild), height(parent.rightChild)) + 1;
 		child.height = max(height(child.leftChild), height(child.rightChild)) + 1;
 
-		return (child);
+		return child;
 	}
 
 	private AVLNode doubleRotateWithLeftChild(AVLNode parent) {
@@ -184,7 +183,7 @@ public class AVLTree {
 			node.rightChild = deleteElement(value, node.rightChild);
 			int right = node.rightChild != null ? height(node.rightChild) : -1;
 			if ((node.leftChild != null)
-					&& (height(node.leftChild) - right >= 2)) {
+					&& (right - height(node.leftChild) <= -2)) {
 				int leftHeight = node.leftChild.leftChild != null ? height(node.leftChild.leftChild)
 						: 0;
 				int rightHeight = node.leftChild.rightChild != null ? height(node.leftChild.rightChild)
@@ -246,7 +245,7 @@ public class AVLTree {
 	public void printTree() {
 		Stack<AVLNode> globalStack = new Stack<AVLNode>();
 		globalStack.push(root);
-		int nBlanks = 80;
+		int nBlanks = 32;
 		boolean isRowEmpty = false;
 		System.out
 				.println("......................................................");
@@ -273,7 +272,7 @@ public class AVLTree {
 				}
 				for (int j = 0; j < nBlanks * 2 - 2; j++)
 					System.out.print(' ');
-			} // end while globalStack not empty
+			}
 			System.out.println();
 			nBlanks /= 2;
 			while (localStack.isEmpty() == false)
