@@ -70,11 +70,11 @@ public class AVLTree {
 		}
 
 		parent.height = max(height(parent.leftChild), height(parent.rightChild)) + 1;
-		
+
 		return parent;
 
 	}
-	
+
 	/** Return max value */
 	private int max(int a, int b) {
 		if (a > b)
@@ -209,14 +209,14 @@ public class AVLTree {
 						: 0;
 
 				if (rightHeight >= leftHeight)
-					node = rotateWithLeftChild(node);
+					node = rotateWithRightChild(node);
 				else
 					node = doubleRotateWithRightChild(node);
 			}
 		}
 
 		else {
-			node = (node.leftChild != null) ? node.leftChild : node.rightChild;
+			node = node.rightChild;
 		}
 
 		if (node != null) {
